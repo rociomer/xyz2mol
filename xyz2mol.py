@@ -518,10 +518,10 @@ def AC2mol(mol, AC, atoms, charge, allow_charged_fragments=True,
 def get_proto_mol(atoms):
     """
     """
-    mol = Chem.MolFromSmarts("[#" + str(atoms[0]) + "]")
+    mol = Chem.MolFromSmarts("[#" + str(int(atoms[0])) + "]")
     rwMol = Chem.RWMol(mol)
     for i in range(1, len(atoms)):
-        a = Chem.Atom(atoms[i])
+        a = Chem.Atom(int(atoms[i]))
         rwMol.AddAtom(a)
 
     mol = rwMol.GetMol()
@@ -589,7 +589,7 @@ def xyz2AC_vdW(atoms, xyz):
     # Set coordinates
     conf = Chem.Conformer(mol.GetNumAtoms())
     for i in range(mol.GetNumAtoms()):
-        conf.SetAtomPosition(i, (xyz[i][0], xyz[i][1], xyz[i][2]))
+        conf.SetAtomPosition(i, (float(xyz[i][0]), float(xyz[i][1]), float(xyz[i][2])))
     mol.AddConformer(conf)
 
     AC = get_AC(mol)
